@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Fa\Http\Controllers;
+namespace Fa\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Zizaco\Entrust\EntrustFacade;
 use View;
 use Carbon\Carbon;
-use App\Fa\Helpers\FaHelper;
+use Fa\Helpers\FaHelper;
 use App\User;
 
 class FaController extends BaseController

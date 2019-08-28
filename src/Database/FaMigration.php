@@ -1,14 +1,14 @@
 <?php 
 
-namespace App\Fa\database;
+namespace Fa\database;
 
 use DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
-// use App\Fa\Helpers\FaHelper;
-// use App\Fa\Helpers\DateTimeHelper;
-// use App\Fa\Helpers\StrHelper;
+// use Fa\Helpers\FaHelper;
+// use Fa\Helpers\DateTimeHelper;
+// use Fa\Helpers\StrHelper;
 
 class FaMigration extends Migration{
     /**

@@ -1,10 +1,10 @@
 <?php
-namespace App\Fa\Model;
+namespace Fa\Model;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Fa\Log\Flog;
+use Fa\Log\Flog;
 // web
 
 class FaModel extends Model

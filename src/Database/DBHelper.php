@@ -1,14 +1,14 @@
 <?php 
 
-namespace App\Fa\database;
+namespace Fa\database;
 
 use DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use App\Fa\database\DBHelper;
-// use App\Fa\Helpers\FaHelper;
-// use App\Fa\Helpers\DateTimeHelper;
-// use App\Fa\Helpers\StrHelper;
+use Fa\database\DBHelper;
+// use Fa\Helpers\FaHelper;
+// use Fa\Helpers\DateTimeHelper;
+// use Fa\Helpers\StrHelper;
 
 class DBHelper {
 

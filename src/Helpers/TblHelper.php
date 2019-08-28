@@ -1,10 +1,10 @@
 <?php 
 
-namespace App\Fa\Helpers;
+namespace Fa\Helpers;
 
-// use App\Fa\Log\Flog;
-use App\Fa\Helpers\FaHelper;
-use App\Fa\Helpers\StrHelper;
+// use Fa\Log\Flog;
+use Fa\Helpers\FaHelper;
+use Fa\Helpers\StrHelper;
 
 class TblHelper {
 

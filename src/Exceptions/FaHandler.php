@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Fa\Exceptions;
+namespace Fa\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use App\Fa\Helpers\FaHelper;
-use App\Fa\Log\Flog;
-use App\Fa\Http\ApiHelper;
-use App\Fa\Http\ReqHelper;
-use App\Fa\Http\FaApiRc;
-use App\Fa\Exceptions\FaException;
+use Fa\Helpers\FaHelper;
+use Fa\Log\Flog;
+use Fa\Http\ApiHelper;
+use Fa\Http\ReqHelper;
+use Fa\Http\FaApiRc;
+use Fa\Exceptions\FaException;
 
 class FaHandler extends ExceptionHandler
 {

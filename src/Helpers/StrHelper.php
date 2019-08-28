@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Fa\Helpers;
+namespace Fa\Helpers;
 /*
-use App\Fa\Helpers\StrHelper;
+use Fa\Helpers\StrHelper;
 */
 
 class StrHelper {

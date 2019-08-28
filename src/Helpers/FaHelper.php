@@ -1,5 +1,5 @@
 <?php 
-namespace App\Fa\Helpers;
+namespace Fa\Helpers;
 
 class FaHelper {
 

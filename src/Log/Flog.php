@@ -1,5 +1,5 @@
 <?php
-namespace App\Fa\Log;
+namespace Fa\Log;
 
 use Storage;
 

@@ -1,11 +1,11 @@
 <?php 
 
-namespace App\Fa\Helpers;
+namespace Fa\Helpers;
 
 use Storage;
 use Carbon\Carbon;
-use App\Fa\Helpers\FaHelper;
-use App\Fa\Log\Flog;
+use Fa\Helpers\FaHelper;
+use Fa\Log\Flog;
 
 class StorageHelper {
 	public static function get($path, $defCtt = NULL) {

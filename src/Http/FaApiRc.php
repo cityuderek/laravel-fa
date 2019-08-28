@@ -1,7 +1,7 @@
 <?php
-namespace App\Fa\Http;
+namespace Fa\Http;
 
-class FaApiRc extends \App\Fa\Model\BasicEnum{
+class FaApiRc extends \Fa\Model\BasicEnum{
 	// FA 0000 to 1999
 	const SUCCESS = "0000";
 	const ERROR = "1000";

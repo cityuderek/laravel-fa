@@ -1,11 +1,11 @@
 <?php 
 
-namespace App\Fa\Http;
+namespace Fa\Http;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Fa\Helpers\FaHelper;
-use App\Fa\Helpers\StrHelper;
+use Fa\Helpers\FaHelper;
+use Fa\Helpers\StrHelper;
 
 class ReqHelper {
 	public static $data = array();

@@ -1,5 +1,5 @@
 <?php
-namespace App\Fa\Exceptions;
+namespace Fa\Exceptions;
 
 use Exception;
 use Illuminate\Support\Facades\Log;

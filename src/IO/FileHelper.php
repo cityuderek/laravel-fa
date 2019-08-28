@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Fa\IO;
+namespace Fa\IO;
 
 use Carbon\Carbon;
-use App\Fa\Helpers\FaHelper;
+use Fa\Helpers\FaHelper;
 
 class FileHelper {
 	public static function failResp($msg = "UNK", $rc = -1, $disp_msg = "", $data = NULL) {

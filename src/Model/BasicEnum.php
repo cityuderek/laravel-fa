@@ -1,5 +1,5 @@
 <?php
-namespace App\Fa\Model;
+namespace Fa\Model;
 
 abstract class BasicEnum {
     private static $constCacheArray = NULL;

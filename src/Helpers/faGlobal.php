@@ -5,28 +5,28 @@ function logd(){
     $params = func_get_args();
     $param1 = ((isset($params[0])) ? $params[0] : "");
     $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-    call_user_func_array("\App\Fa\Log\Flog::d", array($param1, $param2));
+    call_user_func_array("\Fa\Log\Flog::d", array($param1, $param2));
 }
 
 function logi(){
     $params = func_get_args();
     $param1 = ((isset($params[0])) ? $params[0] : "");
     $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-    call_user_func_array("\App\Fa\Log\Flog::i", array($param1, $param2));
+    call_user_func_array("\Fa\Log\Flog::i", array($param1, $param2));
 }
 
 function logw(){
     $params = func_get_args();
     $param1 = ((isset($params[0])) ? $params[0] : "");
     $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-    call_user_func_array("\App\Fa\Log\Flog::w", array($param1, $param2));
+    call_user_func_array("\Fa\Log\Flog::w", array($param1, $param2));
 }
 
 function loge(){
     $params = func_get_args();
     $param1 = ((isset($params[0])) ? $params[0] : "");
     $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-    call_user_func_array("\App\Fa\Log\Flog::e", array($param1, $param2));
+    call_user_func_array("\Fa\Log\Flog::e", array($param1, $param2));
 }
 
 function logMsg(){
@@ -35,21 +35,21 @@ function logMsg(){
     $param2 = ((isset($params[1])) ? $params[1] : "");
     $param3 = ((isset($params[2])) ? $params[2] : 0) + 1;
     if($param1 == "D"){
-        call_user_func_array("\App\Fa\Log\Flog::d", array($param2, $param3));
+        call_user_func_array("\Fa\Log\Flog::d", array($param2, $param3));
         
     }else if($param1 == "W"){
-        call_user_func_array("\App\Fa\Log\Flog::w", array($param2, $param3));
+        call_user_func_array("\Fa\Log\Flog::w", array($param2, $param3));
         
     }else if($param1 == "E"){
-        call_user_func_array("\App\Fa\Log\Flog::e", array($param2, $param3));
+        call_user_func_array("\Fa\Log\Flog::e", array($param2, $param3));
         
     }else if($param1 == "I"){
-        call_user_func_array("\App\Fa\Log\Flog::i", array($param2, $param3));
+        call_user_func_array("\Fa\Log\Flog::i", array($param2, $param3));
     }
 }
 
 function varDump(){
-    call_user_func_array("\App\Fa\Log\Flog::varDump", array_merge([1], func_get_args()));
+    call_user_func_array("\Fa\Log\Flog::varDump", array_merge([1], func_get_args()));
 }
 
 // function showModel(){
@@ -59,12 +59,12 @@ function varDump(){
 //     if($param1 !== NULL){
 //         $param1 = $param1->toArray();
 //     }
-//     call_user_func_array("\App\Fa\Log\Flog::varDump", array(1, $param1, $param2));
+//     call_user_func_array("\Fa\Log\Flog::varDump", array(1, $param1, $param2));
 // }
 
 function reqId(){
-    // return call_user_func("\App\Fa\Http\ReqHelper::getData");
-    return call_user_func_array("\App\Fa\Http\ReqHelper::getData", array('req_id'));
+    // return call_user_func("\Fa\Http\ReqHelper::getData");
+    return call_user_func_array("\Fa\Http\ReqHelper::getData", array('req_id'));
 }
 
 function debugMsg(){

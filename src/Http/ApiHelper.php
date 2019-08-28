@@ -1,9 +1,9 @@
 <?php 
-namespace App\Fa\Http;
+namespace Fa\Http;
 
 use Carbon\Carbon;
-use App\Fa\Helpers\FaHelper;
-use App\Fa\Http;
+use Fa\Helpers\FaHelper;
+use Fa\Http;
 
 
 class ApiHelper {
