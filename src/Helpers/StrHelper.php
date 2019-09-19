@@ -34,31 +34,24 @@ class StrHelper {
 		return true;
 	}
 
+	//// Handle New line //////////////////////////////////////////////////////////////
+	public static function rmCrlf($str) {
+		return str_replace("\n", "", str_replace("\r\n", "", $str));
+	}
+
+	public static function filterNewLine($str){
+		return str_replace("\n", "", str_replace("\r\n", "", $str));
+	}
+
+	//// Operation //////////////////////////////////////////////////////////////
 	public static function append($str1, $str2, $delimiter = ', ') {
 		if(!$str2) return $str1;
 		if(!$str1) return $str2;
 
 		return $str1 . $delimiter . $str2;
 	}
-
-	public static function smry($str, $title = "str", $maxLen = 20) {
-		if($str === NULL){
-			return $title . "(null)";
-		}
-		if(!$str){
-			return $title . "(0)";
-		}
-
-		$len = strlen($str);
-		if($len > $maxLen){
-			$short = substr($str, 0, $maxLen) . "...";
-
-		}else{
-			$short = $str;
-		}
-
-		return $title . "($len): $short";
-	}
+	
+	//// Filter //////////////////////////////////////////////////////////////
 
 	public static function getLeft($str, $len) {
 		if($len < 0){
@@ -150,13 +143,29 @@ class StrHelper {
 
 	   return preg_replace('/[^' . $patt . ']/', '', $str);
 	}
+	
+	//// Development //////////////////////////////////////////////////////////////
 
-	//// replace
-	static function filterNewLine($str){
-		return str_replace("\n", "", str_replace("\r\n", "", $str));
+	public static function smry($str, $title = "str", $maxLen = 20) {
+		if($str === NULL){
+			return $title . "(null)";
+		}
+		if(!$str){
+			return $title . "(0)";
+		}
+
+		$len = strlen($str);
+		if($len > $maxLen){
+			$short = substr($str, 0, $maxLen) . "...";
+
+		}else{
+			$short = $str;
+		}
+
+		return $title . "($len): $short";
 	}
 
-	////
+	//// Other //////////////////////////////////////////////////////////////////////
 	public static function generateRandomString($length = 32) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -169,10 +178,14 @@ class StrHelper {
         return $randomString;
 	}
 
+
+	//// Null //////////////////////////////////////////////////////////////////////
 	public static function avoidNull($str){
 		return $str ? $str : "";
 	}
 
+
+	//// Check //////////////////////////////////////////////////////////////////////
 	public static function contains($haystack, $needle){
 		return strpos($haystack, $needle) !== false;
 	}
@@ -187,11 +200,6 @@ class StrHelper {
 	     return (substr($haystack, 0, $length) === $needle);
 	}
 
-	public static function limitLen($str, $n)
-	{
-	     return substr($str, 0, $n);
-	}
-
 	public static function endsWith($haystack, $needle)
 	{
 	    $length = strlen($needle);
@@ -200,5 +208,16 @@ class StrHelper {
 	    }
 
 	    return (substr($haystack, -$length) === $needle);
+	}
+
+	//// Length //////////////////////////////////////////////////////////////////////
+	public static function limitLen($str, $n)
+	{
+	     return substr($str, 0, $n);
+	}
+	
+	public static function strLen($str)
+	{
+	     return $str ? strlen($str) : 0;
 	}
 }

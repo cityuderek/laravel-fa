@@ -2,6 +2,7 @@
 namespace Fa\Log;
 
 use Storage;
+use Illuminate\Support\Facades\Log;
 
 defined('LOG_FILE_NAME') or define('LOG_FILE_NAME', '../storage/logs/laravel.log');
 
@@ -389,23 +390,45 @@ class Flog {
 	}
 
 	protected static function logMsg($debugLevel, $callerInfo, $msg, $outputType){
-		defined('LOG_FILE_NAME') or define('LOG_FILE_NAME', 'log.txt');
-		if($outputType == 1 || $outputType == 2){
-			$str = str_replace("\r\n", "<br>\r\n", $msg) . 
-				"<br>\r\n";
-			echo $str;
+		//// use Laravel log
+		$str = (!empty($callerInfo) ? "[" . $callerInfo . "]" : "") . 
+			// "\t" . (!empty($tag) ? "[" . $tag . "]" : "") . 
+			"\t" . $msg;
+		if($debugLevel == "[D]"){
+			Log::debug($str);
+
+		}else if($debugLevel == "[E]"){
+			Log::error($str);
+
+		}else if($debugLevel == "[W]"){
+			Log::warning($str);
+
+		}else if($debugLevel == "[I]"){
+			Log::info($str);
+
+		}else{
+			Log::debug("unknown debugLevel=$debugLevel; " . $str);
+
 		}
+
+		//// write to file manually
+		// defined('LOG_FILE_NAME') or define('LOG_FILE_NAME', 'log.txt');
+		// if($outputType == 1 || $outputType == 2){
+		// 	$str = str_replace("\r\n", "<br>\r\n", $msg) . 
+		// 		"<br>\r\n";
+		// 	echo $str;
+		// }
 		
-		if($outputType == 0 || $outputType == 2){
-			$str = date("Y-m-d h:i:s") . 
-				"\t" . $debugLevel . 
-				"\t" . (!empty($callerInfo) ? "[" . $callerInfo . "]" : "") . 
-				// "\t" . (!empty($tag) ? "[" . $tag . "]" : "") . 
-				"\t" . $msg . 
-				"\r\n";
-			//file_put_contents(.'log.txt', $str , FILE_APPEND | LOCK_EX);
-			$filepath = (defined('JPATH_BASE') ? JPATH_BASE . DS : "") . LOG_FILE_NAME;
-			file_put_contents($filepath, $str , FILE_APPEND | LOCK_EX);
-		}
+		// if($outputType == 0 || $outputType == 2){
+		// 	$str = date("Y-m-d h:i:s") . 
+		// 		"\t" . $debugLevel . 
+		// 		"\t" . (!empty($callerInfo) ? "[" . $callerInfo . "]" : "") . 
+		// 		// "\t" . (!empty($tag) ? "[" . $tag . "]" : "") . 
+		// 		"\t" . $msg . 
+		// 		"\r\n";
+		// 	//file_put_contents(.'log.txt', $str , FILE_APPEND | LOCK_EX);
+		// 	$filepath = (defined('JPATH_BASE') ? JPATH_BASE . DS : "") . LOG_FILE_NAME;
+		// 	file_put_contents($filepath, $str , FILE_APPEND | LOCK_EX);
+		// }
 	}
 }

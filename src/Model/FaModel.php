@@ -9,98 +9,97 @@ use Fa\Log\Flog;
 
 class FaModel extends Model
 {
-	protected $akeyName = '';
 
     public static function createIfNotExistsA($akey){
 		$instance = (new static);
-    	$akeyName = $instance->akeyName;
+    	$primaryKey = $instance->primaryKey;
     	
-        $tmp = $instance->where($akeyName, $akey);
+        $tmp = $instance->where($primaryKey, $akey);
 		if($tmp->exists()){
-			// logd("get $akeyName=$akey");
+			// logd("get $primaryKey=$akey");
 			return null;
 		}
     	
-        $tmp = $instance->withTrashed()->where($akeyName, $akey);
+        $tmp = $instance->withTrashed()->where($primaryKey, $akey);
 		if($tmp->exists()){
-			// logd("restore $akeyName=$akey");
+			// logd("restore $primaryKey=$akey");
 			return null;
 		}
 
-    	// logd("create $akeyName=$akey");
-		$obj = $instance->create([$akeyName => $akey]);
+    	// logd("create $primaryKey=$akey");
+		$obj = $instance->create([$primaryKey => $akey]);
 
         return $obj;
     }
 
     public static function firstOrCreateA($akey){
 		$instance = (new static);
-    	$akeyName = $instance->akeyName;
+    	$primaryKey = $instance->primaryKey;
     	
-        $tmp = $instance->where($akeyName, $akey);
+        $tmp = $instance->where($primaryKey, $akey);
 		if($tmp->exists()){
-			// logd("get $akeyName=$akey");
+			// logd("get $primaryKey=$akey");
 			return $tmp->first();
 		}
     	
-        $tmp = $instance->withTrashed()->where($akeyName, $akey);
+        $tmp = $instance->withTrashed()->where($primaryKey, $akey);
 		if($tmp->exists()){
-			// logd("restore $akeyName=$akey");
+			// logd("restore $primaryKey=$akey");
 			$tmp->restore();
-			return $instance->where($akeyName, $akey)->first();
+			return $instance->where($primaryKey, $akey)->first();
 		}
 
-    	// logd("create $akeyName=$akey");
-		$obj = $instance->create([$akeyName => $akey]);
+    	// logd("create $primaryKey=$akey");
+		$obj = $instance->create([$primaryKey => $akey]);
 
         return $obj;
     }
 
     public static function restoreA($akey){
-    	$akeyName = (new static)->akeyName;
-    	// logd("$akeyName=$akey");
-        return self::withTrashed()->where($akeyName, $akey)->restore();
+    	$primaryKey = (new static)->primaryKey;
+    	// logd("$primaryKey=$akey");
+        return self::withTrashed()->where($primaryKey, $akey)->restore();
     }
 
     public static function existsA($akey){
-    	$akeyName = (new static)->akeyName;
-    	// logd("$akeyName=$akey");
-        return self::where($akeyName, $akey)->exists();
+    	$primaryKey = (new static)->primaryKey;
+    	// logd("$primaryKey=$akey");
+        return self::where($primaryKey, $akey)->exists();
     }
 
 	public static function insertA($akey) {
-    	$akeyName = (new static)->akeyName;
-    	// logd("$akeyName=$akey");
-		$obj = self::insert([$akeyName => $akey]);
+    	$primaryKey = (new static)->primaryKey;
+    	// logd("$primaryKey=$akey");
+		$obj = self::insert([$primaryKey => $akey]);
 
 		return $obj;
 	}
 
 	public static function createA($akey) {
 		$instance = (new static);
-    	$akeyName = $instance->akeyName;
-    	// logd("$akeyName=$akey");
-		$obj = $instance->create([$akeyName => $akey]);
+    	$primaryKey = $instance->primaryKey;
+    	// logd("$primaryKey=$akey");
+		$obj = $instance->create([$primaryKey => $akey]);
 
 		return $obj;
 	}
 
 	public static function deleteA($akey) {
-    	$akeyName = (new static)->akeyName;
-    	// logd("$akeyName=$akey");
-		return self::where($akeyName, $akey)->delete();
+    	$primaryKey = (new static)->primaryKey;
+    	// logd("$primaryKey=$akey");
+		return self::where($primaryKey, $akey)->delete();
 	}
 
 	public static function isDeletedA($akey) {
-    	$akeyName = (new static)->akeyName;
-    	// logd("$akeyName=$akey");
-		return self::withTrashed()->where($akeyName, $akey)->whereNotNull('deleted_at')->exists();
+    	$primaryKey = (new static)->primaryKey;
+    	// logd("$primaryKey=$akey");
+		return self::withTrashed()->where($primaryKey, $akey)->whereNotNull('deleted_at')->exists();
 	}
 
 	public static function getA($akey) {
-    	$akeyName = (new static)->akeyName;
-    	// logd("$akeyName=$akey");
-        $tmp = self::where($akeyName, $akey);
+    	$primaryKey = (new static)->primaryKey;
+    	// logd("$primaryKey=$akey");
+        $tmp = self::where($primaryKey, $akey);
 		// logd("count=" . $tmp->count());
 		// Log::debug(__METHOD__ . "; items=" . count($items));
 		// if(!count($items)) return NULL;
