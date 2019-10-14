@@ -4,63 +4,77 @@
 if(!function_exists('logd')){
     function logd(){
         $params = func_get_args();
-        $param1 = ((isset($params[0])) ? $params[0] : "");
-        $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-        call_user_func_array("\Fa\Log\Flog::d", array($param1, $param2));
+        $msg = ((isset($params[0])) ? $params[0] : "");
+        $callerOffset = ((isset($params[1])) ? $params[1] : 0) + 1;
+        call_user_func_array("\Fa\Log\Flog::d", array($msg, $callerOffset));
     }
 }
 
 if(!function_exists('logi')){
     function logi(){
         $params = func_get_args();
-        $param1 = ((isset($params[0])) ? $params[0] : "");
-        $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-        call_user_func_array("\Fa\Log\Flog::i", array($param1, $param2));
+        $msg = ((isset($params[0])) ? $params[0] : "");
+        $callerOffset = ((isset($params[1])) ? $params[1] : 0) + 1;
+        call_user_func_array("\Fa\Log\Flog::i", array($msg, $callerOffset));
     }
 }
 
 if(!function_exists('logw')){
     function logw(){
         $params = func_get_args();
-        $param1 = ((isset($params[0])) ? $params[0] : "");
-        $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-        call_user_func_array("\Fa\Log\Flog::w", array($param1, $param2));
+        $msg = ((isset($params[0])) ? $params[0] : "");
+        $callerOffset = ((isset($params[1])) ? $params[1] : 0) + 1;
+        call_user_func_array("\Fa\Log\Flog::w", array($msg, $callerOffset));
     }
 }
 
 if(!function_exists('loge')){
     function loge(){
         $params = func_get_args();
-        $param1 = ((isset($params[0])) ? $params[0] : "");
-        $param2 = ((isset($params[1])) ? $params[1] : 0) + 1;
-        call_user_func_array("\Fa\Log\Flog::e", array($param1, $param2));
+        $msg = ((isset($params[0])) ? $params[0] : "");
+        $callerOffset = ((isset($params[1])) ? $params[1] : 0) + 1;
+        call_user_func_array("\Fa\Log\Flog::e", array($msg, $callerOffset));
     }
 }
 
 if(!function_exists('logMsg')){
     function logMsg(){
         $params = func_get_args();
-        $param1 = strtoupper($params[0]);
-        $param2 = ((isset($params[1])) ? $params[1] : "");
-        $param3 = ((isset($params[2])) ? $params[2] : 0) + 1;
-        if($param1 == "D"){
-            call_user_func_array("\Fa\Log\Flog::d", array($param2, $param3));
+        $logLevel = strtoupper($params[0]);
+        $msg = ((isset($params[1])) ? $params[1] : "");
+        $callerOffset = ((isset($params[2])) ? $params[2] : 0) + 1;
+        if($logLevel == "D"){
+            call_user_func_array("\Fa\Log\Flog::d", array($msg, $callerOffset));
             
-        }else if($param1 == "W"){
-            call_user_func_array("\Fa\Log\Flog::w", array($param2, $param3));
+        }else if($logLevel == "W"){
+            call_user_func_array("\Fa\Log\Flog::w", array($msg, $callerOffset));
             
-        }else if($param1 == "E"){
-            call_user_func_array("\Fa\Log\Flog::e", array($param2, $param3));
+        }else if($logLevel == "E"){
+            call_user_func_array("\Fa\Log\Flog::e", array($msg, $callerOffset));
             
-        }else if($param1 == "I"){
-            call_user_func_array("\Fa\Log\Flog::i", array($param2, $param3));
+        }else if($logLevel == "I"){
+            call_user_func_array("\Fa\Log\Flog::i", array($msg, $callerOffset));
         }
     }
 }
 
 if(!function_exists('varDump')){
     function varDump(){
-        call_user_func_array("\Fa\Log\Flog::varDump", array_merge([1], func_get_args()));
+        $params = func_get_args();
+        $obj = ((isset($params[0])) ? $params[0] : "");
+        $title = ((isset($params[1])) ? $params[1] : "");
+        $callerOffset = ((isset($params[2])) ? $params[2] : 0) + 1;
+        call_user_func_array("\Fa\Log\Flog::varDump", array($obj, $title, $callerOffset));
+    }
+}
+
+if(!function_exists('varDumpToJStr')){
+    function varDumpToJStr(){
+        $params = func_get_args();
+        $obj = ((isset($params[0])) ? $params[0] : "");
+        $title = ((isset($params[1])) ? $params[1] : "");
+        $callerOffset = ((isset($params[2])) ? $params[2] : 0) + 1;
+        call_user_func_array("\Fa\Log\Flog::varDumpToJStr", array($obj, $title, $callerOffset));
     }
 }
 
@@ -164,14 +178,26 @@ if(!function_exists('isTrue')){
     //// Array
 
 if(!function_exists('getFromArr')){
-    function getFromArr($arr, $defaultValue, $key1, $key2 = ""){
-        if(empty($arr)) return $defaultValue;
-        if(empty($key1)) return $defaultValue;
-        if(!isset($arr[$key1])) return $defaultValue;
-        if(empty($key2)){
-            return $arr[$key1];
+    function getFromArr(){
+        $params = func_get_args();
+        $arr = $params[0];
+        $defaultValue = $params[1];
+        $n = count($params) - 2;
+
+        for($i = 2; $i < count($params); $i++){
+            $key = $params[$i];
+            // if(!$key){
+            //  return $arr;
+            // }
+            if(isset($arr[$key])){
+                $arr = $arr[$key];
+
+            }else{
+                return $defaultValue;
+
+            }
         }
-        if(!isset($arr[$key1][$key2])) return $defaultValue;
-        return $arr[$key1][$key2];
+
+        return $arr;
     }
 }

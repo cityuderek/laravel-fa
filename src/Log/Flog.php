@@ -172,7 +172,7 @@ class Flog {
 		}
 		
     	$args = func_get_args();
-    	$mthOffset = 0;
+    	$callerOffset = 0;
     	$title = "";
     	$obj = NULL;
     	$outputType = 0;
@@ -188,12 +188,12 @@ class Flog {
 				$title = $args[1];
 
 			}else if($cnt== 3){
-				$mthOffset = $args[0];
+				$callerOffset = $args[0];
 				$obj = $args[1];
 				$title = $args[2];
 
 			}else if(count($args) == 4){
-				$mthOffset = $args[0];
+				$callerOffset = $args[0];
 				$obj = $args[1];
 				$title = $args[2];
 				$outputType = $args[3];
@@ -204,7 +204,50 @@ class Flog {
 			$msg = "Invalid param count; " . count($args);
 
 		}
-		self::logMsg("[D]", self::getCallerInfo($mthOffset), $msg, $outputType);
+		self::logMsg("[D]", self::getCallerInfo($callerOffset), $msg, $outputType);
+	}
+
+	public static function varDumpToJStr(){
+		$logLevel = self::getJConfigVal("logLevel");
+		if($logLevel != 'DEBUG'){
+			return;
+		}
+		
+    	$args = func_get_args();
+    	$callerOffset = 0;
+    	$title = "";
+    	$obj = NULL;
+    	$outputType = 0;
+
+    	$cnt = count($args);
+    	if($cnt <= 4){
+			if($cnt == 1){
+				$title = "obj";
+				$obj = $args[0];
+
+			}else if($cnt == 2){
+				$obj = $args[0];
+				$title = $args[1];
+
+			}else if($cnt== 3){
+				$obj = $args[0];
+				$title = $args[1];
+				$callerOffset = $args[2];
+
+			}else if(count($args) == 4){
+				$obj = $args[0];
+				$title = $args[1];
+				$callerOffset = $args[2];
+				$outputType = $args[3];
+			}
+        	$sJson = json_encode($obj);
+			$msg = "varDumpToJStr; " . self::getVarDumpString($title, $sJson);
+
+		}else{
+			$msg = "Invalid param count; " . count($args);
+
+		}
+		self::logMsg("[D]", self::getCallerInfo($callerOffset), $msg, $outputType);
 	}
 
 	public static function getVarDumpString($title, $obj, $level = 0){
@@ -273,9 +316,9 @@ class Flog {
 		}else{
 			$msg = "Invalid param count; " . count($args);
 		}
-		$mthOffset = $flag % 100;
+		$callerOffset = $flag % 100;
 		$outputType = intval($flag / 100);
-		self::logMsg("[D]", self::getCallerInfo($mthOffset), $msg, $outputType);
+		self::logMsg("[D]", self::getCallerInfo($callerOffset), $msg, $outputType);
 	}
 
 	public static function i(){
@@ -298,9 +341,9 @@ class Flog {
 		}else{
 			$msg = "Invalid param count; " . count($args);
 		}
-		$mthOffset = $flag % 100;
+		$callerOffset = $flag % 100;
 		$outputType = intval($flag / 100);
-		self::logMsg("[I]", self::getCallerInfo($mthOffset), $msg, $outputType);
+		self::logMsg("[I]", self::getCallerInfo($callerOffset), $msg, $outputType);
 	}
 
 	public static function w(){
@@ -323,9 +366,9 @@ class Flog {
 		}else{
 			$msg = "Invalid param count; " . count($args);
 		}
-		$mthOffset = $flag % 100;
+		$callerOffset = $flag % 100;
 		$outputType = intval($flag / 100);
-		self::logMsg("[W]", self::getCallerInfo($mthOffset), $msg, $outputType);
+		self::logMsg("[W]", self::getCallerInfo($callerOffset), $msg, $outputType);
 	}
 
 	public static function e(){
@@ -348,9 +391,9 @@ class Flog {
 		}else{
 			$msg = "Invalid param count; " . count($args);
 		}
-		$mthOffset = $flag % 100;
+		$callerOffset = $flag % 100;
 		$outputType = intval($flag / 100);
-		self::logMsg("[E]", self::getCallerInfo($mthOffset), $msg, $outputType);
+		self::logMsg("[E]", self::getCallerInfo($callerOffset), $msg, $outputType);
 	}
 
 	protected static function showObjDet($title, $obj){

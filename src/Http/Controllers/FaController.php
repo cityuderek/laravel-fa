@@ -91,11 +91,11 @@ class FaController extends BaseController
         ];
     }
     // protected function getViewData(){
-    //     // GlobalHelper::logd("title=" . $this->getTitle());
-    //     // GlobalHelper::logd("getPageKey=" . $this->getPageKey());
-    //     // GlobalHelper::logd("getPageUrlName=" . $this->getPageUrlName());
-    //     // GlobalHelper::logd("getSelfPath=" . $this->getSelfPath());
-    //     // GlobalHelper::logd("getViewFolder=" . $this->getViewFolder());
+    //     // logd("title=" . $this->getTitle());
+    //     // logd("getPageKey=" . $this->getPageKey());
+    //     // logd("getPageUrlName=" . $this->getPageUrlName());
+    //     // logd("getSelfPath=" . $this->getSelfPath());
+    //     // logd("getViewFolder=" . $this->getViewFolder());
     //     return [
     //         'title' => $this->getTitle(), 
     //         'pageKey' => $this->getPageKey(), 
@@ -159,7 +159,8 @@ class FaController extends BaseController
     //// Response //////////////////////////////////////////////////////////////////
     public function abort($code, $message = '', array $headers = []){
         if($message){
-            Log::debug(GlobalHelper::getCallerInfo() . "; " . $message);
+            logd("abort; code=$code, message=$message", 1);
+            // Log::debug($message);
         }
         abort($code, $message, $headers);
     }
