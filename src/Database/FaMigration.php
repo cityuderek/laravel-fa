@@ -1,6 +1,6 @@
 <?php 
 
-namespace Fa\database;
+namespace Fa\Database;
 
 use DB;
 use Illuminate\Support\Str;

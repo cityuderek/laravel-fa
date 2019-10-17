@@ -187,10 +187,12 @@ class StrHelper {
 
 	//// Check //////////////////////////////////////////////////////////////////////
 	public static function contains($haystack, $needle){
+		if(!$haystack) return false;
 		return strpos($haystack, $needle) !== false;
 	}
 
 	public static function notContains($haystack, $needle){
+		if(!$haystack) return true;
 		return strpos($haystack, $needle) === false;
 	}
 

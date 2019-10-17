@@ -1,12 +1,12 @@
 <?php 
 
-namespace Fa\database;
+namespace Fa\Database;
 
 use DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-class FaDBReportHelper extends DBHelper{
+class FaDBReportHelper extends DbHelper{
 
 	protected static function getDataArrAvg($arr, $n) {
 		// varDump($arr, 'arr');
