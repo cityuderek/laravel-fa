@@ -1,0 +1,8 @@
+*.log
+composer.phar
+log.txt
+.env
+.idea
+.vagrant
+vendor/
+node_modules/
