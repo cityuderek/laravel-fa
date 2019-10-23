@@ -178,7 +178,7 @@ class Flog {
     	$outputType = 0;
 
     	$cnt = count($args);
-    	if($cnt <= 4){
+    	if($cnt <= 3){
 			if($cnt == 1){
 				$title = "obj";
 				$obj = $args[0];
@@ -188,15 +188,15 @@ class Flog {
 				$title = $args[1];
 
 			}else if($cnt== 3){
-				$callerOffset = $args[0];
-				$obj = $args[1];
-				$title = $args[2];
+				$obj = $args[0];
+				$title = $args[1];
+				$callerOffset = $args[2];
 
-			}else if(count($args) == 4){
-				$callerOffset = $args[0];
-				$obj = $args[1];
-				$title = $args[2];
-				$outputType = $args[3];
+			// }else if(count($args) == 4){
+			// 	$obj = $args[0];
+			// 	$title = $args[1];
+			// 	$callerOffset = $args[2];
+			// 	$outputType = $args[3];
 			}
 			$msg = "varDump; " . self::getVarDumpString($title, $obj);
 
@@ -270,8 +270,10 @@ class Flog {
 			}
 
 			// logd("000 t=$t, c=$c");
+
+			// Log::debug("cnt=" . count($obj->getAttributes()));
 			if ($obj instanceof \Illuminate\Database\Eloquent\Model) {
-			   $obj = $obj->toArray();
+			   $obj = $obj->toArray();	// may cause exception
 			}
 
 			$isHandled = $t == "string" || $t == "double" || $t == "integer" || $t == "float" || $t == "boolean";

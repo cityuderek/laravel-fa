@@ -5,6 +5,7 @@
         "laravel",
         "framework"
     ],
+    "license": "MIT",
     "authors": [
         {
             "name": "Derek Lam",
