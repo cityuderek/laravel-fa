@@ -1,4 +1,4 @@
 # laravel-fa
 Laravel FA framework
 
-Version 1.1.0
+Version 1.1.1
