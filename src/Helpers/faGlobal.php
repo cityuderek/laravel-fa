@@ -201,3 +201,28 @@ if(!function_exists('getFromArr')){
         return $arr;
     }
 }
+
+if(!function_exists('gfa')){
+    function gfa(){
+        $params = func_get_args();
+        $arr = $params[0];
+        $defaultValue = $params[1];
+        $n = count($params) - 2;
+
+        for($i = 2; $i < count($params); $i++){
+            $key = $params[$i];
+            // if(!$key){
+            //  return $arr;
+            // }
+            if(isset($arr[$key])){
+                $arr = $arr[$key];
+
+            }else{
+                return $defaultValue;
+
+            }
+        }
+
+        return $arr;
+    }
+}
