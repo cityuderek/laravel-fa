@@ -19,11 +19,11 @@
     },
 	"autoload": {
 	"psr-4": {
-	  "Fa\\": "src/"
+	  "Fa\\": "src/Fa/"
 	},
 	"files": [
-    "src/Helpers/faGlobal.php",
-    "src/Helpers/faUiGlobal.php"
+    "src/Fa/Helpers/faGlobal.php",
+    "src/Fa/Helpers/faUiGlobal.php"
 	]
 	},
   "extra": {

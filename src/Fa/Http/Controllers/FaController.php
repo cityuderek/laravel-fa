@@ -45,9 +45,33 @@ class FaController extends BaseController
         });
     }
 
+    //// Route /////////////////////////////////////////////////////////////////////////
+    public function index(Request $request) {
+        return view($this->getViewPath());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, $id = 0)
+    {
+        logd("id=$id");
+        return $this->getDetailView($request, 'show', $id);
+    }
+
+    //// PageInfo /////////////////////////////////////////////////////////////////////////
+
     // eg cms_admin
     protected function getPageKey(){
+        logw("getPageKey has not override");
         return "";
+    }
+
+    protected function getTitle() {
+        return __("admin." . $this->getPageKey());
     }
 
     //// URL /////////////////////////////////////////////////////////////////////////
@@ -79,8 +103,6 @@ class FaController extends BaseController
     }
 
     //// View //////////////////////////////////////////////////////////////////
-
-    //// View //////////////////////////////////////////////////////////////////
     protected function getViewData(Request $request){
 
         return ['title' => '', 
@@ -90,33 +112,46 @@ class FaController extends BaseController
             'selfPath' => $this->getSelfPath()
         ];
     }
-    // protected function getViewData(){
-    //     // logd("title=" . $this->getTitle());
-    //     // logd("getPageKey=" . $this->getPageKey());
-    //     // logd("getPageUrlName=" . $this->getPageUrlName());
-    //     // logd("getSelfPath=" . $this->getSelfPath());
-    //     // logd("getViewFolder=" . $this->getViewFolder());
-    //     return [
-    //         'title' => $this->getTitle(), 
-    //         'pageKey' => $this->getPageKey(), 
-    //         'pageUrlName' => $this->getPageUrlName(),
-    //         'selfPath' => $this->getSelfPath()
-    //     ];
-    // }
-
-    protected function getTitle() {
-        return __("admin." . $this->getPageKey());
-    }
 
     // eg cms_admin
     protected function getViewFolder(){
         return $this->getPageKey();
     }
 
+    protected function getDetailViewData(Request $request, $act, $id = 0){
+        $obj = $this->getOrCreateObj($id);
+        // $modUrl = url($this->getPageKey());
+        $modUrl = $this->getPageKey();
+        $data = array(
+            'obj' => $obj,
+            'act' => $act,
+            'modUrl' => $modUrl,
+            'actionUrl' => $modUrl . ($act == 'edit' ? '/' . $id: ''),
+            'actionUrl' => $modUrl . ($act == 'edit' ? '/' . $id: ''),
+            'actName' => ucfirst($act == 'show' ? 'View' : $act),
+            'isReadOnly' => $act == 'show',
+            'isEdit' => $act == 'edit',
+            'isCreate' => $act == 'create'
+            );
+        // logd("getPageKey=" . $this->getPageKey());
+        // varDump($data, 'data');
+
+        return $data;
+    }
+
+    protected function getDetailView(Request $request, $act, $id = 0){
+        $data = $this->getDetailViewData($request, $act, $id);
+        // logd("getPageKey=" . $this->getPageKey());
+        // varDump($data, 'data');
+
+        return view($this->getViewPath('detail'), $data);
+    }
+
     // eg cms_admin.index
-    protected function getViewPath($viewName){
+    protected function getViewPath($viewName = 'index'){
         return $this->getViewFolder() . ".$viewName";
     }
+
 
     //// Permission //////////////////////////////////////////////////////////////////
     protected function hasPermission($permission) {
@@ -167,5 +202,11 @@ class FaController extends BaseController
 
     public function redirectToHtml(Request $request) {
         return redirect()->to($request->path() . '.html');
+    }
+
+    //// Model //////////////////////////////////////////////////////////////////
+    protected function getOrCreateObj($id){
+        logw("getOrCreateObj has not override; id=$id");
+        return null;
     }
 }
