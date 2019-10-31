@@ -130,7 +130,7 @@ if(!function_exists('keys2karr')){
                 $arr2[$keyField] = $key;
             }
         }
-        return $columns;
+        return $arr2;
     }
 }
 
