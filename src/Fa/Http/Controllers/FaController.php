@@ -46,20 +46,31 @@ class FaController extends BaseController
     }
 
     //// Route /////////////////////////////////////////////////////////////////////////
-    public function index(Request $request) {
+    public function defIndex(Request $request) {
+        // logd("");
         return view($this->getViewPath());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $id = 0)
+    public function defShow(Request $request, $id = 0)
     {
         logd("id=$id");
-        return $this->getDetailView($request, 'show', $id);
+        $data = $this->getDetailViewData($request, 'show', $id);
+        return view($this->getViewPath('detail'), $data);
+    }
+
+    public function defEdit(Request $request, $id = 0)
+    {
+        logd("id=$id");
+        $data = $this->getDetailViewData($request, 'edit', $id);
+        return view($this->getViewPath('detail'), $data);
+    }
+
+
+    public function defCreate(Request $request)
+    {
+        logd("");
+        $data = $this->getDetailViewData($request, 'create', null);
+        return view($this->getViewPath('detail'), $data);
     }
 
     //// PageInfo /////////////////////////////////////////////////////////////////////////
@@ -76,18 +87,18 @@ class FaController extends BaseController
 
     //// URL /////////////////////////////////////////////////////////////////////////
     // eg cms-admin
-    protected function getPageUrlName(){
-        return str_replace("_", "-", $this->getPageKey());
-    }
+    // protected function getPageUrlName(){
+    //     return str_replace("_", "-", $this->getPageKey());
+    // }
 
     // eg /cms_admin
-    protected function getSelfPath(){
-        return "/" . $this->getPageUrlName();
+    protected function getPageUrl(){
+        return "/" . slug($this->getPageKey());
     }
 
     //// Response //////////////////////////////////////////////////////////////////
     protected function redirectSelf($msg = ""){
-        $page = redirect($this->getSelfPath());
+        $page = redirect($this->getPageUrl());
 
         if($msg){
             return $page->with('msg', __($msg));
@@ -97,7 +108,7 @@ class FaController extends BaseController
     }
 
     protected function redirectSelfFail($msg){
-        $page = redirect($this->getSelfPath());
+        $page = redirect($this->getPageUrl());
         Log::warning(__METHOD__ . "; fail; msg=$msg");
         return $page->with('err_msg', __($msg));
     }
@@ -105,34 +116,27 @@ class FaController extends BaseController
     //// View //////////////////////////////////////////////////////////////////
     protected function getViewData(Request $request){
 
-        return ['title' => '', 
+        return ['title' => $this->getTitle(), 
             'description' => '',
-            'pageName' => $this->getPageKey(),
-            'pageUrlName' => $this->getPageUrlName(),
-            'selfPath' => $this->getSelfPath()
+            'pageKey' => $this->getPageKey(),
+            'pageUrl' => $this->getPageUrl()
         ];
-    }
-
-    // eg cms_admin
-    protected function getViewFolder(){
-        return $this->getPageKey();
     }
 
     protected function getDetailViewData(Request $request, $act, $id = 0){
         $obj = $this->getOrCreateObj($id);
         // $modUrl = url($this->getPageKey());
-        $modUrl = $this->getPageKey();
-        $data = array(
-            'obj' => $obj,
-            'act' => $act,
-            'modUrl' => $modUrl,
-            'actionUrl' => $modUrl . ($act == 'edit' ? '/' . $id: ''),
-            'actionUrl' => $modUrl . ($act == 'edit' ? '/' . $id: ''),
-            'actName' => ucfirst($act == 'show' ? 'View' : $act),
-            'isReadOnly' => $act == 'show',
-            'isEdit' => $act == 'edit',
-            'isCreate' => $act == 'create'
-            );
+        $pageUrl = $this->getPageKey();
+        $data = $this->getViewData($request);
+        $data['act'] = $act;
+        $data['obj'] = $obj;
+        $data['pageUrl'] = $pageUrl;
+        $data['actionUrl'] = $pageUrl . ($act == 'edit' ? '/' . $id: '');
+        $data['actName'] = toTitle($act == 'show' ? 'View' : $act);
+        $data['isReadOnly'] = $act == 'show';
+        $data['isEdit'] = $act == 'edit';
+        $data['isCreate'] = $act == 'create';
+
         // logd("getPageKey=" . $this->getPageKey());
         // varDump($data, 'data');
 
@@ -149,7 +153,12 @@ class FaController extends BaseController
 
     // eg cms_admin.index
     protected function getViewPath($viewName = 'index'){
-        return $this->getViewFolder() . ".$viewName";
+        return snake($this->getViewFolder() . ".$viewName");
+    }
+
+    // eg cms_admin
+    protected function getViewFolder(){
+        return snake($this->getPageKey());
     }
 
 
