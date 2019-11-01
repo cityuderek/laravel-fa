@@ -34,16 +34,21 @@ if(!function_exists('lower')){
 
 if(!function_exists('snake')){
     function snake($str) {
-        $str = str_replace("-", "_", $str);
+        $str = str_replace(["-", " "], "_", $str);
         return strtolower(preg_replace(
         '/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', '_', $str));
 
+        //// Laravel
+        // $str = preg_replace('/\s+/u', '', ucwords($str));
+        // $str = lower(preg_replace('/(.)(?=[A-Z])/u', '$1_', $str));
+        // // return $str;
+        // return str_replace(['__', '-_'], '_', $str);
     }
 }
 
 if(!function_exists('slug')){
     function slug($str) {
-        $str = str_replace("_", "-", $str);
+        $str = str_replace(["_", " "], "-", $str);
         return strtolower(preg_replace(
         '/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/', '-', $str));
     }
